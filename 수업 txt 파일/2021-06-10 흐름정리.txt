@@ -1,0 +1,61 @@
+○ 물리적 파일 구성
+   1. Record.java		→ 인터페이스
+   2. RecordView.java		→ 인터페이스
+   3. RecordImpl1.java		→ 클래스. Record 구현
+   4. RecordImpl2.java		→ 클래스. Record 구현
+   5. RecordViewImpl.java	→ 클래스. RecordView 구현
+   6. Main.java			→ 클래스. main() 메소드가 포함된 테스트 클래스
+
+
+
+--------------------------------------------------------------------------------
+
+Record.java (틀)
+
+setter / getter 선언
+
+
+--------------------
+
+RecordView.java (틀)
+Record 타입을 매개변수로 넘겨받는다.
+
+input() / ouput() 선언
+
+--------------------
+
+RecordImpl1.java  (내용물)		 
+
+Record 인터페이스 상속받아
+setter / getter 메소드 오버라이딩
+
+--------------------
+
+RecordImpl2.java  (내용물)		
+
+Record 인터페이스 상속받아
+setter / getter 메소드 오버라이딩
+
+--------------------
+
+RecordViewImpl.java  (내용물)	
+
+RecordView 인터페이스 상속받아
+input / output 메소드 오버라이딩
+
+--------------------
+
+Main.java  (실행)
+
+Record 타입(인터페이스) rec1 에	RecordImpl1() 생성
+Record 타입(인터페이스) rec2 에	RecordImpl2() 생성
+
+RecordView 타입(인터페이스) view 에 RecordViewInpl() 생성
+
+view의 setRecored(rec1) 메소드 호출
+
+view.input();
+view.output();
+
+
+--------------------------------------------------------------------------------
