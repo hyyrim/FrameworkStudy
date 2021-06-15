@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ※ 스프링이 제공하는 환경 설정 XML 파일 샘플 -->
+	<!--    → 스프링이 생성하고 관리해야 할 객체들에 대한 정보 전달 -->
+	
+	<!-- 주 업무 -->
+	<!-- CalculatorImpl 클래스의 객체 생성을 위한 정보 전달 -->
+	<bean id="cal" class="com.test.spr.CalculatorImpl"></bean>
+	<!-- 스프링, 스프링 컨테이너에서 class 의 설계도를 찾아
+	     알아서 인스턴스를 생성해준다. 직접 쓰는거 Ⅹ -->
+	
+	<!-- 보조 업무 -->
+	<!-- CalculatorAspect 클래스의 객체 생성을 위한 정보 전달 -->
+	<bean id="aspect" class="com.test.spr.CalculatorAspect"></bean>
+	
+	<!-- CalculatorBeforeAdvice 클래스의 객체 생성을 위한 정보 전달 -->
+	<bean id="before" class="com.test.spr.CalculatorBeforeAdvice"></bean>
+	
+	<!-- CalculatorAfterThrowing 클래스의 객체 생성을 위한 정보 전달 -->
+	<bean id="afterThrowing" class="com.test.spr.CalculatorAfterThrowing"></bean>
+	
+	<!-- check~!!! -->
+	<!-- 스프링이 제공하는 가짜 객체(Proxy) 클래스의 객체 생성을 위한 정보 전달 -->
+	<!-- 『ProxyFactoryBean』 -->
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+	
+		<!-- 주 업무 클래스의 인터페이스 정보 제공 -->
+		<!-- → 『proxyInterfaces』 -->
+		<property name="proxyInterfaces">
+			<list>
+			<!-- 복수형의 property 를 넘길때는 <list>엘리먼트를 사용해야 한다. -->
+				<value>com.test.spr.Calculator</value>
+			</list>
+		</property>
+		
+		<!-- 주 업무 클래스의 객체 정보 제공 -->
+		<!-- → 『target』 -->
+		<property name="target" ref="cal"></property>
+		<!-- 위에서 작성한 
+		     <bean id="cal" class="com.test.spr.CalculatorImpl"></bean> -->
+		
+		<!-- 보조 업무 클래스의 객체 정보 제공 -->
+		<!-- → 『interceptorNames』 -->
+		<property name="interceptorNames">
+			<list>
+			<!-- List 구조니까 add 해준다고 보면 된다. -->
+			
+				<!-- Around Advice -->
+				<value>aspect</value>
+				
+				<!-- Before Advice -->
+				<value>before</value>
+				<!-- 스프링아 이거 내가 추가한 보조업무야~ 라고 넣어주게 되면 -->
+				<!-- 스프링 : 아 ~ 여기에(before) 에 보조업무를 추가해달라고 하는구나 -->
+				<!-- 설계도를 봐야겠구나 → MethodBeforeAdvie 를 implements 했네? -->
+				<!-- ㅇㅋㅇㅋ 넣어 주겠음 -->
+				
+				<!-- After Throwing Advice -->
+				<value>afterThrowing</value>
+				
+			</list>
+		</property>
+		
+	</bean>
+			
+</beans>
